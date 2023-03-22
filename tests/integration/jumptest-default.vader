@@ -1,0 +1,29 @@
+Execute (jump to test):
+  edit ./foo.py
+  JumpTest
+  AssertEqual expand('%'), './foo.test.py'
+
+Execute (jump to main):
+  edit ./foo.test.py
+  JumpTest
+  AssertEqual expand('%'), './foo.py'
+
+Execute (relative jump to test):
+  edit ./path/to/foo.py
+  JumpTest
+  AssertEqual expand('%'), './path/to/foo.test.py'
+
+Execute (relative jump to main):
+  edit ./path/to/foo.test.py
+  JumpTest
+  AssertEqual expand('%'), './path/to/foo.py'
+
+Execute (absolute jump to test):
+  edit /path/to/foo.py
+  JumpTest
+  AssertEqual expand('%'), '/path/to/foo.test.py'
+
+Execute (absolute jump to main):
+  edit /path/to/foo.test.py
+  JumpTest
+  AssertEqual expand('%'), '/path/to/foo.py'

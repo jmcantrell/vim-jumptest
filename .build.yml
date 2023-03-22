@@ -1,0 +1,10 @@
+---
+image: archlinux
+packages:
+  - vim
+sources:
+  - https://git.sr.ht/~jmcantrell/vim-jumptest
+tasks:
+  - test: |
+      cd vim-jumptest
+      ./scripts/test

@@ -6,8 +6,8 @@ License:  Same terms as Vim itself (see |license|)
 INTRODUCTION                                      *jumptest* *jumptest.vim*
 
 In many unit-test systems, it's common for the tests to be stored alongside the
-corresponding file that is being tested (e.g. `foo.test.py` provides test
-coverage for `foo.py`). This plugin provides a command that jumps between these
+corresponding file that is being tested (e.g. 'foo.test.py' provides test
+coverage for 'foo.py'). This plugin provides a command that jumps between these
 two files.
 
 CONFIGURATION                                     *jumptest-configuration*
@@ -17,15 +17,31 @@ g:jumptest_loaded                                 *g:jumptest_loaded*
 
 g:jumptest_tag                                    *g:jumptest_tag*
     A |String| used as the identifier for the test file (e.g. if the main file
-    is `foo.py` and `g:jumptest_tag` is "test", then the test file is expected
-    to be `foo.test.py`).
+    is 'foo.py' and |g:jumptest_tag| is "test", then the test file is expected
+    to be 'foo.test.py').
 
 b:jumptest_tag                                    *b:jumptest_tag*
     If this is set, it will be used instead of |g:jumptest_tag|.
+
+If neither |b:jumptest_tag| nor |g:jumptest_tag| is set, then 'test' will be
+used.
+
+FUNCTIONS
+
+jumptest#alt_file({fname}, {tag})                 *jumptest#alt_file()*
+    Return the alternate filename of {fname}. The value of {tag} should be
+    a string like 'test' or 'spec' that is used when constructing the
+    main/alternate filename. For example, when {fname} is 'foo.py' and {tag}
+    is 'test' then 'foo.test.py' will be returned. Conversely, if {fname} is
+    'foo.test.py' and {tag} is 'test' then 'foo.py' will be returned.
+
+jumptest#jump()                                   *jumptest#jump()*
+    Does the same thing as |:JumpTest| but more convenient for scripting.
 
 COMMANDS
 
                                                   *:JumpTest*
 :JumpTest               Jump to/from the test file for the current buffer.
+                        If the buffer has no file, nothing will happen.
 
 vim:tw=78:et:ft=help:norl:
