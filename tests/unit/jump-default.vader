@@ -1,29 +1,32 @@
+After:
+  silent! bwipeout! 1,$
+
 Execute (jump to test):
-  edit ./foo.py
+  edit foo.py
   call jumptest#jump()
-  AssertEqual expand('%'), './foo.test.py'
+  AssertEqual expand('%'), 'foo_test.py'
 
 Execute (jump to main):
-  edit ./foo.test.py
+  edit foo_test.py
   call jumptest#jump()
-  AssertEqual expand('%'), './foo.py'
+  AssertEqual expand('%'), 'foo.py'
 
 Execute (relative jump to test):
   edit ./path/to/foo.py
   call jumptest#jump()
-  AssertEqual expand('%'), './path/to/foo.test.py'
+  AssertEqual expand('%'), './path/to/foo_test.py'
 
 Execute (relative jump to main):
-  edit ./path/to/foo.test.py
+  edit ./path/to/foo_test.py
   call jumptest#jump()
   AssertEqual expand('%'), './path/to/foo.py'
 
 Execute (absolute jump to test):
   edit /path/to/foo.py
   call jumptest#jump()
-  AssertEqual expand('%'), '/path/to/foo.test.py'
+  AssertEqual expand('%'), '/path/to/foo_test.py'
 
 Execute (absolute jump to main):
-  edit /path/to/foo.test.py
+  edit /path/to/foo_test.py
   call jumptest#jump()
   AssertEqual expand('%'), '/path/to/foo.py'

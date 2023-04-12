@@ -1,42 +1,43 @@
 Before:
-  let g:jumptest_tag = 'nope'
+  let g:jumptest_tag = 'NOPE'
 
 After:
   unlet g:jumptest_tag
   bufdo unlet! b:jumptest_tag
+  silent! bwipeout! 1,$
 
 Execute (jump to test):
-  edit ./foo.py
-  let b:jumptest_tag = 'spec'
+  edit foo.py
+  let b:jumptest_tag = '_spec'
   JumpTest
-  AssertEqual expand('%'), './foo.spec.py'
+  AssertEqual expand('%'), 'foo_spec.py'
 
 Execute (jump to main):
-  edit ./foo.spec.py
-  let b:jumptest_tag = 'spec'
+  edit foo_spec.py
+  let b:jumptest_tag = '_spec'
   JumpTest
-  AssertEqual expand('%'), './foo.py'
+  AssertEqual expand('%'), 'foo.py'
 
 Execute (relative jump to test):
   edit ./path/to/foo.py
-  let b:jumptest_tag = 'spec'
+  let b:jumptest_tag = '_spec'
   JumpTest
-  AssertEqual expand('%'), './path/to/foo.spec.py'
+  AssertEqual expand('%'), './path/to/foo_spec.py'
 
 Execute (relative jump to main):
-  edit ./path/to/foo.spec.py
-  let b:jumptest_tag = 'spec'
+  edit ./path/to/foo_spec.py
+  let b:jumptest_tag = '_spec'
   JumpTest
   AssertEqual expand('%'), './path/to/foo.py'
 
 Execute (absolute jump to test):
   edit /path/to/foo.py
-  let b:jumptest_tag = 'spec'
+  let b:jumptest_tag = '_spec'
   JumpTest
-  AssertEqual expand('%'), '/path/to/foo.spec.py'
+  AssertEqual expand('%'), '/path/to/foo_spec.py'
 
 Execute (absolute jump to main):
-  edit /path/to/foo.spec.py
-  let b:jumptest_tag = 'spec'
+  edit /path/to/foo_spec.py
+  let b:jumptest_tag = '_spec'
   JumpTest
   AssertEqual expand('%'), '/path/to/foo.py'

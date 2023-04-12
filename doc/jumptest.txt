@@ -17,28 +17,48 @@ g:jumptest_loaded                                 *g:jumptest_loaded*
 
 g:jumptest_tag                                    *g:jumptest_tag*
     A |String| used as the identifier for the test file (e.g. if the main file
-    is 'foo.py' and |g:jumptest_tag| is "test", then the test file is expected
+    is 'foo.py' and |g:jumptest_tag| is ".test", then the test file is expected
     to be 'foo.test.py').
 
 b:jumptest_tag                                    *b:jumptest_tag*
     If this is set, it will be used instead of |g:jumptest_tag|.
 
-If neither |b:jumptest_tag| nor |g:jumptest_tag| is set, then 'test' will be
+If neither |b:jumptest_tag| nor |g:jumptest_tag| is set, then '_test' will be
 used.
 
-FUNCTIONS
+g:jumptest_prefix                                 *g:jumptest_prefix*
+    A |String| used as a pattern to match everything in a file path up to the
+    tag that identifies it as a test.
 
-jumptest#alt_file({fname}, {tag})                 *jumptest#alt_file()*
-    Return the alternate filename of {fname}. The value of {tag} should be
-    a string like 'test' or 'spec' that is used when constructing the
-    main/alternate filename. For example, when {fname} is 'foo.py' and {tag}
-    is 'test' then 'foo.test.py' will be returned. Conversely, if {fname} is
-    'foo.test.py' and {tag} is 'test' then 'foo.py' will be returned.
+b:jumptest_prefix                                 *b:jumptest_prefix*
+    If this is set, it will be used instead of |g:jumptest_prefix|.
+
+If neither |b:jumptest_prefix| nor |g:jumptest_prefix| is set, then '[^/.]\+'
+will be used, which matches on any string that does not contain a path
+separator or a period. The default assumption is that the first period starts
+the file extension.
+
+g:jumptest_suffix                                 *g:jumptest_suffix*
+    A |String| used as a pattern to match everything in a file path up to the
+    tag that identifies it as a test.
+
+b:jumptest_suffix                                 *b:jumptest_suffix*
+    If this is set, it will be used instead of |g:jumptest_suffix|.
+
+If neither |b:jumptest_suffix| nor |g:jumptest_suffix| is set, then
+'\(\.[^/]\+\)\?$' will be used, which matches on an optional multi-extension.
+
+FUNCTIONS                                         *jumptest-functions*
+
+jumptest#alternate_file({fname})                  *jumptest#alternate_file()*
+    Return the alternate filename of {fname}. If it is a test file, then the
+    main file will be returned. If it's not a test file, then the test file
+    will be returned.
 
 jumptest#jump()                                   *jumptest#jump()*
     Does the same thing as |:JumpTest| but more convenient for scripting.
 
-COMMANDS
+COMMANDS                                          *jumptest-commands*
 
                                                   *:JumpTest*
 :JumpTest               Jump to/from the test file for the current buffer.

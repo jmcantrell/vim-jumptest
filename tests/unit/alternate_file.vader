@@ -1,0 +1,27 @@
+Execute (missing file):
+  AssertThrows call jumptest#alternate_file('')
+  AssertEqual g:vader_exception, 'missing file'
+
+Execute (without extension):
+  AssertEqual jumptest#alternate_file('foo'), 'foo_test'
+  AssertEqual jumptest#alternate_file('foo_test'), 'foo'
+
+Execute (with extension):
+  AssertEqual jumptest#alternate_file('foo.py'), 'foo_test.py'
+  AssertEqual jumptest#alternate_file('foo_test.py'), 'foo.py'
+
+Execute (relative without extension):
+  AssertEqual jumptest#alternate_file('./path/to/foo'), './path/to/foo_test'
+  AssertEqual jumptest#alternate_file('./path/to/foo_test'), './path/to/foo'
+
+Execute (relative with extension):
+  AssertEqual jumptest#alternate_file('./path/to/foo.py'), './path/to/foo_test.py'
+  AssertEqual jumptest#alternate_file('./path/to/foo_test.py'), './path/to/foo.py'
+
+Execute (absolute without extension):
+  AssertEqual jumptest#alternate_file('/path/to/foo'), '/path/to/foo_test'
+  AssertEqual jumptest#alternate_file('/path/to/foo_test'), '/path/to/foo'
+
+Execute (absolute with extension):
+  AssertEqual jumptest#alternate_file('/path/to/foo.py'), '/path/to/foo_test.py'
+  AssertEqual jumptest#alternate_file('/path/to/foo_test.py'), '/path/to/foo.py'

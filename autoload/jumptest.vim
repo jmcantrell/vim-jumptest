@@ -2,39 +2,25 @@ function! s:get(name, default) abort
     return get(b:, a:name, get(g:, a:name, a:default))
 endfunction
 
-function! jumptest#alt_file(file, tag) abort
+function! jumptest#alternate_file(file) abort
     if empty(a:file)
         throw 'missing file'
     endif
 
-    if empty(a:tag)
-        throw 'missing tag'
-    endif
+    let tag = s:get('jumptest_tag', '_test')
+    let prefix = s:get('jumptest_prefix', '[^/.]\+')
+    let suffix = s:get('jumptest_suffix', '\(\.[^/]\+\)\?$')
 
-    let dir = fnamemodify(a:file, ':h')
-    let ext = fnamemodify(a:file, ':t:e')
+    let main_pattern = $'{prefix}\zs\ze{suffix}'
+    let test_pattern = $'{prefix}\zs{tag}\ze{suffix}'
 
-    " If the extension is the same as the tag, it probably means the file had
-    " no extension, so enforce that. Otherwise the result will be something
-    " like 'foo.test.test'.
-    if ext == a:tag
-        let name = fnamemodify(a:file, ':t')
-        let ext = ''
+    if a:file =~# test_pattern
+        return substitute(a:file, test_pattern, '', '')
+    elseif a:file =~# main_pattern
+        return substitute(a:file, main_pattern, tag, '')
     else
-        let name = fnamemodify(a:file, ':t:r')
+        throw 'jumptest: file not matched by main/test patterns'
     endif
-
-    let alt_name = name =~# $'.*\.{a:tag}'
-        \ ? name[:-(len(a:tag)+2)]
-        \ : $'{name}.{a:tag}'
-
-    let alt_file = join([dir, alt_name], '/')
-
-    if !empty(ext)
-        let alt_file .= $'.{ext}'
-    endif
-
-    return alt_file
 endfunction
 
 function! jumptest#jump() abort
@@ -44,12 +30,11 @@ function! jumptest#jump() abort
         return
     endif
 
-    let tag = s:get('jumptest_tag', 'test')
-    let alt_file = jumptest#alt_file(file, tag)
+    let alternate_file = jumptest#alternate_file(file)
 
-    if empty(alt_file)
+    if empty(alternate_file)
         return
     endif
 
-    execute $'edit {alt_file}'
+    execute $'edit {alternate_file}'
 endfunction
