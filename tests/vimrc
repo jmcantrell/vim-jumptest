@@ -1,0 +1,6 @@
+set runtimepath^=.
+
+set packpath^=./tests/vim
+set packpath+=./tests/vim/after
+
+filetype plugin on

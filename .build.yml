@@ -2,6 +2,7 @@
 image: archlinux
 packages:
   - vim
+  - neovim
 sources:
   - https://git.sr.ht/~jmcantrell/vim-jumptest
 tasks:

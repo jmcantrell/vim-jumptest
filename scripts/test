@@ -15,10 +15,11 @@ ensure_git() {
 
 ensure_git \
     https://github.com/junegunn/vader.vim \
-    ./tests/.vim/pack/default/start/vim-vader
+    ./tests/vim/pack/default/start/vim-vader
 
-run_vim() {
-    vim --not-a-term -N --clean -u ./tests/.vimrc "$@"
+run_tests() {
+    vim --not-a-term -N --clean -u ./tests/vimrc "$@"
+    nvim --headless -N --clean -u ./tests/vimrc "$@"
 }
 
-run_vim '+Vader! tests/{unit,integration}/**.vader'
+run_tests '+Vader! tests/{unit,integration}/**.vader'
