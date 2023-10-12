@@ -6,7 +6,7 @@ License:  Same terms as Vim itself (see |license|)
 INTRODUCTION                                      *jumptest* *jumptest.vim*
 
 In many unit-test systems, it's common for the tests to be stored alongside the
-corresponding file that is being tested (e.g. 'foo.test.py' provides test
+corresponding file that is being tested (e.g. 'foo_test.py' provides test
 coverage for 'foo.py'). This plugin provides a command that jumps between these
 two files.
 
@@ -17,8 +17,8 @@ g:jumptest_loaded                                 *g:jumptest_loaded*
 
 g:jumptest_tag                                    *g:jumptest_tag*
     A |String| used as the identifier for the test file (e.g. if the main file
-    is 'foo.py' and |g:jumptest_tag| is ".test", then the test file is expected
-    to be 'foo.test.py').
+    is 'foo.py' and |g:jumptest_tag| is "_test", then the test file is expected
+    to be 'foo_test.py').
 
 b:jumptest_tag                                    *b:jumptest_tag*
     If this is set, it will be used instead of |g:jumptest_tag|.
