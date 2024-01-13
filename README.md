@@ -9,7 +9,7 @@ package support:
 
 ```
 mkdir -p ~/.vim/pack/default/start
-git clone <url> ~/.vim/pack/default/start/jumptest
+git clone $REPO_URL ~/.vim/pack/default/start/jumptest
 vim -u NONE -c "helptags jumptest/doc" -c q
 ```
 
